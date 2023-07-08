@@ -16,6 +16,14 @@ CONF_VERTICAL_SWING_SELECT = "vertical_vane_select"
 panasonic_ns = cg.esphome_ns.namespace("panasonic_ir")
 PanasonicClimate = panasonic_ns.class_("PanasonicClimate", climate_ir.ClimateIR)
 
+PanasonicACSelect = cg.global_ns.class_(
+    "PanasonicACSelect", select.Select, cg.Component
+)
+
+SELECT_SCHEMA = select.SELECT_SCHEMA.extend(
+    {cv.GenerateID(CONF_ID): cv.declare_id(PanasonicACSelect)}
+)
+
 HORIZONTAL_SWING_OPTIONS = [
     "left",
     "center_left",
