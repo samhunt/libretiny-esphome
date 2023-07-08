@@ -234,14 +234,18 @@ ClimateCall &ClimateCall::set_swing_mode(ClimateSwingMode swing_mode) {
   return *this;
 }
 ClimateCall &ClimateCall::set_swing_mode(const std::string &swing_mode) {
-  if (str_equals_case_insensitive(swing_mode, "OFF")) {
-    this->set_swing_mode(CLIMATE_SWING_OFF);
-  } else if (str_equals_case_insensitive(swing_mode, "BOTH")) {
-    this->set_swing_mode(CLIMATE_SWING_BOTH);
-  } else if (str_equals_case_insensitive(swing_mode, "VERTICAL")) {
-    this->set_swing_mode(CLIMATE_SWING_VERTICAL);
-  } else if (str_equals_case_insensitive(swing_mode, "HORIZONTAL")) {
-    this->set_swing_mode(CLIMATE_SWING_HORIZONTAL);
+  if (str_equals_case_insensitive(swing_mode, "AUTO")) {
+    this->set_swing_mode(CLIMATE_SWING_AUTO);
+  } else if (str_equals_case_insensitive(swing_mode, "TOP")) {
+    this->set_swing_mode(CLIMATE_SWING_TOP);
+  } else if (str_equals_case_insensitive(swing_mode, "MIDDLE_TOP")) {
+    this->set_swing_mode(CLIMATE_SWING_MIDDLE_TOP);
+  } else if (str_equals_case_insensitive(swing_mode, "MIDDLE")) {
+    this->set_swing_mode(CLIMATE_SWING_MIDDLE);
+  } else if (str_equals_case_insensitive(swing_mode, "MIDDLE_BOTTOM")) {
+    this->set_swing_mode(CLIMATE_SWING_MIDDLE_BOTTOM);
+  } else if (str_equals_case_insensitive(swing_mode, "BOTTOM")) {
+    this->set_swing_mode(CLIMATE_SWING_BOTTOM);
   } else {
     ESP_LOGW(TAG, "'%s' - Unrecognized swing mode %s", this->parent_->get_name().c_str(), swing_mode.c_str());
   }
