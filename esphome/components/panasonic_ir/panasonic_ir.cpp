@@ -18,16 +18,23 @@ const uint16_t PANASONIC_ONE_SPACE = 1300;
 const uint8_t PANASONIC_OFF = 0x08;
 const uint8_t PANASONIC_ON = 0x09;
 
-const uint8_t PANASONIC_MODE_AUTO = 0x00;
-const uint8_t PANASONIC_MODE_COOL = 0x30;
-const uint8_t PANASONIC_MODE_DRY = 0x20;
-const uint8_t PANASONIC_MODE_HEAT = 0x40;
-const uint8_t PANASONIC_MODE_FAN_ONLY = 0x60;
+const uint8_t PANASONIC_MODE_AUTO = 0x00; // 00000000
+const uint8_t PANASONIC_MODE_COOL = 0x30; // 00110000
+const uint8_t PANASONIC_MODE_DRY = 0x20; // 00100000
+const uint8_t PANASONIC_MODE_HEAT = 0x40; // 01000000
+const uint8_t PANASONIC_MODE_FAN_ONLY = 0x60; // 01100000
 
-const uint8_t PANASONIC_FAN_AUTO = 0xA0;
-const uint8_t PANASONIC_FAN_LOW = 0x30;
-const uint8_t PANASONIC_FAN_MEDIUM = 0x50;
-const uint8_t PANASONIC_FAN_HIGH = 0x70;
+const uint8_t PANASONIC_SWING_TOP = 0x01; // 00000001
+const uint8_t PANASONIC_SWING_MIDDLE_TOP = 0x02; // 00000010
+const uint8_t PANASONIC_SWING_MIDDLE = 0x03; //  00000011
+const uint8_t PANASONIC_SWING_MIDDLE_BOTTOM = 0x04; // 00000100 
+const uint8_t PANASONIC_SWING_BOTTOM = 0x05; // 00000101
+const uint8_t PANASONIC_SWIN_AUTO = 0x0F; // 00001111
+
+const uint8_t PANASONIC_FAN_AUTO = 0xA0; // 10100000
+const uint8_t PANASONIC_FAN_LOW = 0x30; // 00110000 (F1)
+const uint8_t PANASONIC_FAN_MEDIUM = 0x50; // 01010000 (F3)
+const uint8_t PANASONIC_FAN_HIGH = 0x70; // 01110000 (F5)
 
 // fan swing
 //(message[8] & 0b00001111)
@@ -138,8 +145,29 @@ void PanasonicClimate::transmit_state() {
   // swing mode horizontal is put in message[9]
 
   uint8_t vertical_swing;
-  uint8_t horizontal_swing;
+  uint8_t horizontal_swing = PANASONIC_SWING_H_OFF;
   switch (this->swing_mode) {
+    case climate::CLIMATE_SWING_TOP:
+      vertical_swing = PANASONIC_SWING_TOP;
+      break;
+    case climate::CLIMATE_SWING_MIDDLE_TOP:
+      vertical_swing = PANASONIC_SWING_MIDDLE_TOP;
+      break;
+    case climate::CLIMATE_SWING_MIDDLE:
+      vertical_swing = PANASONIC_SWING_MIDDLE;
+      break;
+    case climate::CLIMATE_SWING_MIDDLE_BOTTOM:
+      vertical_swing = PANASONIC_SWING_MIDDLE_BOTTOM;
+      break;
+    case climate::CLIMATE_SWING_BOTTOM:
+      vertical_swing = PANASONIC_SWING_BOTTOM;
+      break;
+    case climate::CLIMATE_SWING_AUTO:
+    default:
+      vertical_swing = PANASONIC_SWING_AUTO;
+      break;
+
+    /*
     case climate::CLIMATE_SWING_BOTH:
       vertical_swing = PANASONIC_SWING_V_AUTO;
       horizontal_swing = PANASONIC_SWING_H_AUTO;
@@ -159,6 +187,8 @@ void PanasonicClimate::transmit_state() {
     default:
       vertical_swing = PANASONIC_SWING_V_OFF;
       horizontal_swing = PANASONIC_SWING_H_OFF;
+      */
+
   }
   message[8] = message[8] | vertical_swing;
   message[9] = message[9] | horizontal_swing;
@@ -351,6 +381,36 @@ bool PanasonicClimate::on_receive(remote_base::RemoteReceiveData data) {
   }
 
   /* Swing Mode */
+  const bool support_vertical = this->get_traits().supports_swing_mode(climate::CLIMATE_SWING_VERTICAL); 
+
+  if(support_vertical){
+
+
+
+    switch (message[8] & 0b00001111) {
+      case PANASONIC_SWING_TOP:
+        this->swing_mode = climate::CLIMATE_SWING_TOP;
+        break;
+      case PANASONIC_SWING_MIDDLE_TOP:
+        this->swing_mode = climate::CLIMATE_SWING_MIDDLE_TOP;
+        break;
+      case PANASONIC_SWING_MIDDLE:
+        this->swing_mode = climate::CLIMATE_SWING_MIDDLE;
+        break;
+      case PANASONIC_SWING_MIDDLE_BOTTOM:
+        this->swing_mode = climate::CLIMATE_SWING_MIDDLE_BOTTOM;
+        break;
+      case PANASONIC_SWING_BOTTOM:
+        this->swing_mode = climate::CLIMATE_SWING_BOTTOM;
+        break;
+      case PANASONIC_SWING_AUTO:
+        this->swing_mode = climate::CLIMATE_SWING_BOTH;
+        break;
+    }
+  }else{
+    this->swing_mode = climate::CLIMATE_SWING_OFF;
+  }
+/*
   const bool vertical_auto = this->get_traits().supports_swing_mode(climate::CLIMATE_SWING_VERTICAL) &&
                              (message[8] & 0b00001111) == PANASONIC_SWING_V_AUTO;
   const bool horizontal_auto = this->get_traits().supports_swing_mode(climate::CLIMATE_SWING_HORIZONTAL) &&
@@ -365,6 +425,7 @@ bool PanasonicClimate::on_receive(remote_base::RemoteReceiveData data) {
   } else {
     this->swing_mode = climate::CLIMATE_SWING_OFF;
   }
+*/
 
   this->publish_state();
   return true;
