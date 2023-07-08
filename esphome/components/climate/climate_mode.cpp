@@ -71,14 +71,18 @@ const LogString *climate_fan_mode_to_string(ClimateFanMode fan_mode) {
 
 const LogString *climate_swing_mode_to_string(ClimateSwingMode swing_mode) {
   switch (swing_mode) {
-    case climate::CLIMATE_SWING_OFF:
-      return LOG_STR("OFF");
-    case climate::CLIMATE_SWING_BOTH:
-      return LOG_STR("BOTH");
-    case climate::CLIMATE_SWING_VERTICAL:
-      return LOG_STR("VERTICAL");
-    case climate::CLIMATE_SWING_HORIZONTAL:
-      return LOG_STR("HORIZONTAL");
+    case climate::CLIMATE_SWING_AUTO:
+      return LOG_STR("AUTO");
+    case climate::CLIMATE_SWING_TOP:
+      return LOG_STR("TOP");
+    case climate::CLIMATE_SWING_MIDDLE_TOP:
+      return LOG_STR("MIDDLE_TOP");
+    case climate::CLIMATE_SWING_MIDDLE:
+      return LOG_STR("MIDDLE");
+    case climate::CLIMATE_SWING_MIDDLE_BOTTOM:
+      return LOG_STR("MIDDLE_BOTTOM");
+    case climate::CLIMATE_SWING_BOTTOM:
+      return LOG_STR("BOTTOM");
     default:
       return LOG_STR("UNKNOWN");
   }
