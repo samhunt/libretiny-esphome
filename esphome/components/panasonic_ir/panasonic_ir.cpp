@@ -66,7 +66,8 @@ void PanasonicClimate::update_swing_horizontal(const std::string &swing) {
                                          // position
   }
   
-  PanasonicClimate::decode_state();
+  // TODO: trigger update somehow
+  // PanasonicClimate::decode_state();
 }
 
 void PanasonicClimate::update_swing_vertical(const std::string &swing) {
@@ -77,7 +78,8 @@ void PanasonicClimate::update_swing_vertical(const std::string &swing) {
     this->vertical_vane_select_->publish_state(
         this->vertical_swing_state_);  // Set current vertical swing position
 
-  PanasonicClimate::decode_state();
+  // TODO: trigger update somehow
+  // PanasonicClimate::decode_state();
 }
 
 void PanasonicClimate::set_vertical_vane_select(
