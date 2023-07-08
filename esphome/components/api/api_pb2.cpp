@@ -245,14 +245,18 @@ template<> const char *proto_enum_to_string<enums::ClimateFanMode>(enums::Climat
 #ifdef HAS_PROTO_MESSAGE_DUMP
 template<> const char *proto_enum_to_string<enums::ClimateSwingMode>(enums::ClimateSwingMode value) {
   switch (value) {
-    case enums::CLIMATE_SWING_OFF:
-      return "CLIMATE_SWING_OFF";
-    case enums::CLIMATE_SWING_BOTH:
-      return "CLIMATE_SWING_BOTH";
-    case enums::CLIMATE_SWING_VERTICAL:
-      return "CLIMATE_SWING_VERTICAL";
-    case enums::CLIMATE_SWING_HORIZONTAL:
-      return "CLIMATE_SWING_HORIZONTAL";
+    case enums::CLIMATE_SWING_AUTO:
+      return "CLIMATE_SWING_AUTO";
+    case enums::CLIMATE_SWING_TOP:
+      return "CLIMATE_SWING_TOP";
+    case enums::CLIMATE_SWING_MIDDLE_TOP:
+      return "CLIMATE_SWING_MIDDLE_TOP";
+    case enums::CLIMATE_SWING_MIDDLE:
+      return "CLIMATE_SWING_MIDDLE";
+    case enums::CLIMATE_SWING_MIDDLE_BOTTOM:
+      return "CLIMATE_SWING_MIDDLE_BOTTOM";
+    case enums::CLIMATE_SWING_BOTTOM:
+      return "CLIMATE_SWING_BOTTOM";
     default:
       return "UNKNOWN";
   }
