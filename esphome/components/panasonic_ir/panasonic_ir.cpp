@@ -381,34 +381,25 @@ bool PanasonicClimate::on_receive(remote_base::RemoteReceiveData data) {
   }
 
   /* Swing Mode */
-  const bool support_vertical = this->get_traits().supports_swing_mode(climate::CLIMATE_SWING_VERTICAL); 
-
-  if(support_vertical){
-
-
-
-    switch (message[8] & 0b00001111) {
-      case PANASONIC_SWING_TOP:
-        this->swing_mode = climate::CLIMATE_SWING_TOP;
-        break;
-      case PANASONIC_SWING_MIDDLE_TOP:
-        this->swing_mode = climate::CLIMATE_SWING_MIDDLE_TOP;
-        break;
-      case PANASONIC_SWING_MIDDLE:
-        this->swing_mode = climate::CLIMATE_SWING_MIDDLE;
-        break;
-      case PANASONIC_SWING_MIDDLE_BOTTOM:
-        this->swing_mode = climate::CLIMATE_SWING_MIDDLE_BOTTOM;
-        break;
-      case PANASONIC_SWING_BOTTOM:
-        this->swing_mode = climate::CLIMATE_SWING_BOTTOM;
-        break;
-      case PANASONIC_SWING_AUTO:
-        this->swing_mode = climate::CLIMATE_SWING_BOTH;
-        break;
-    }
-  }else{
-    this->swing_mode = climate::CLIMATE_SWING_OFF;
+  switch (message[8] & 0b00001111) {
+    case PANASONIC_SWING_TOP:
+      this->swing_mode = climate::CLIMATE_SWING_TOP;
+      break;
+    case PANASONIC_SWING_MIDDLE_TOP:
+      this->swing_mode = climate::CLIMATE_SWING_MIDDLE_TOP;
+      break;
+    case PANASONIC_SWING_MIDDLE:
+      this->swing_mode = climate::CLIMATE_SWING_MIDDLE;
+      break;
+    case PANASONIC_SWING_MIDDLE_BOTTOM:
+      this->swing_mode = climate::CLIMATE_SWING_MIDDLE_BOTTOM;
+      break;
+    case PANASONIC_SWING_BOTTOM:
+      this->swing_mode = climate::CLIMATE_SWING_BOTTOM;
+      break;
+    case PANASONIC_SWING_AUTO:
+      this->swing_mode = climate::CLIMATE_SWING_BOTH;
+      break;
   }
 /*
   const bool vertical_auto = this->get_traits().supports_swing_mode(climate::CLIMATE_SWING_VERTICAL) &&
