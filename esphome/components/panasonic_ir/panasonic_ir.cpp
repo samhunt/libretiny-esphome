@@ -398,7 +398,7 @@ bool PanasonicClimate::on_receive(remote_base::RemoteReceiveData data) {
       this->swing_mode = climate::CLIMATE_SWING_BOTTOM;
       break;
     case PANASONIC_SWING_AUTO:
-      this->swing_mode = climate::CLIMATE_SWING_BOTH;
+      this->swing_mode = climate::CLIMATE_SWING_AUTO;
       break;
   }
 /*
