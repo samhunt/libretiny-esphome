@@ -66,7 +66,7 @@ void PanasonicClimate::update_swing_horizontal(const std::string &swing) {
                                          // position
   }
   
-  PanasonicClimate::transmit_state();
+  PanasonicClimate::decode_state();
 }
 
 void PanasonicClimate::update_swing_vertical(const std::string &swing) {
@@ -77,8 +77,7 @@ void PanasonicClimate::update_swing_vertical(const std::string &swing) {
     this->vertical_vane_select_->publish_state(
         this->vertical_swing_state_);  // Set current vertical swing position
 
-  PanasonicClimate::transmit_state();
-
+  PanasonicClimate::decode_state();
 }
 
 void PanasonicClimate::set_vertical_vane_select(
@@ -87,10 +86,8 @@ void PanasonicClimate::set_vertical_vane_select(
   this->vertical_vane_select_->add_on_state_callback(
       [this](const std::string &value, size_t index) {
         if (value == this->vertical_swing_state_) return;
-        this->on_vertical_swing_change(value);
+        PanasonicClimate::transmit_state();
       });
-
-  PanasonicClimate::decode_state();
 }
 
 void PanasonicClimate::set_horizontal_vane_select(
@@ -99,10 +96,8 @@ void PanasonicClimate::set_horizontal_vane_select(
   this->horizontal_vane_select_->add_on_state_callback(
       [this](const std::string &value, size_t index) {
         if (value == this->horizontal_swing_state_) return;
-        this->on_horizontal_swing_change(value);
+        PanasonicClimate::transmit_state();
       });
-
-  PanasonicClimate::decode_state();
 }
 
 void PanasonicClimate::transmit_state() {
@@ -205,31 +200,31 @@ void PanasonicClimate::transmit_state() {
       horizontal_swing = PANASONIC_HORIZONTAL_VANE_CENTER;
   }
 
-  if(strcmp(this->vertical_vane_select_, "top") == 0){
+  if(strcmp(this->vertical_swing_state_, "top") == 0){
       vertical_swing = PANASONIC_VERTICAL_VANE_TOP;
-  }else if(strcmp(this->vertical_vane_select_, "middle_top") == 0){
+  }else if(strcmp(this->vertical_swing_state_, "middle_top") == 0){
       vertical_swing = PANASONIC_VERTICAL_VANE_MIDDLE_TOP;
-  }else if(strcmp(this->vertical_vane_select_, "middle") == 0){
+  }else if(strcmp(this->vertical_swing_state_, "middle") == 0){
       vertical_swing = PANASONIC_VERTICAL_VANE_MIDDLE;
-  }else if(strcmp(this->vertical_vane_select_, "middle_bottom") == 0){
+  }else if(strcmp(this->vertical_swing_state_, "middle_bottom") == 0){
       vertical_swing = PANASONIC_VERTICAL_VANE_MIDDLE_BOTTOM;
-  }else if(strcmp(this->vertical_vane_select_, "bottom") == 0){
+  }else if(strcmp(this->vertical_swing_state_, "bottom") == 0){
       vertical_swing = PANASONIC_VERTICAL_VANE_BOTTOM;
-  }else if(strcmp(this->vertical_vane_select_, "auto") == 0){
+  }else if(strcmp(this->vertical_swing_state_, "auto") == 0){
       vertical_swing = PANASONIC_VERTICAL_VANE_AUTO;
   }
 
-  if(strcmp(this->horizontal_vane_select_, "left") == 0){
+  if(strcmp(this->horizontal_vane_state_, "left") == 0){
       horizontal_swing = PANASONIC_HORIZONTAL_VANE_LEFT;
-  }else if(strcmp(this->horizontal_vane_select_, "center_left") == 0){
+  }else if(strcmp(this->horizontal_vane_state_, "center_left") == 0){
       horizontal_swing = PANASONIC_HORIZONTAL_VANE_CENTER_LEFT; 
-  }else if(strcmp(this->horizontal_vane_select_, "center") == 0){
+  }else if(strcmp(this->horizontal_vane_state_, "center") == 0){
       horizontal_swing = PANASONIC_HORIZONTAL_VANE_CENTER;
-  }else if(strcmp(this->horizontal_vane_select_, "center_right") == 0){
+  }else if(strcmp(this->horizontal_vane_state_, "center_right") == 0){
       horizontal_swing = PANASONIC_HORIZONTAL_VANE_CENTER_RIGHT;
-  }else if(strcmp(this->horizontal_vane_select_, "right") == 0){
+  }else if(strcmp(this->horizontal_vane_state_, "right") == 0){
       horizontal_swing = PANASONIC_HORIZONTAL_VANE_RIGHT;
-  }else if(strcmp(this->horizontal_vane_select_, "auto") == 0){
+  }else if(strcmp(this->horizontal_vane_state_, "auto") == 0){
       horizontal_swing = PANASONIC_HORIZONTAL_VANE_AUTO;
   }
 
