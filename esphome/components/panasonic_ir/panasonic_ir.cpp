@@ -200,31 +200,31 @@ void PanasonicClimate::transmit_state() {
       horizontal_swing = PANASONIC_HORIZONTAL_VANE_CENTER;
   }
 
-  if(strcmp(this->vertical_swing_state_, "top") == 0){
+  if(this->vertical_swing_state_ == "top"){
       vertical_swing = PANASONIC_VERTICAL_VANE_TOP;
-  }else if(strcmp(this->vertical_swing_state_, "middle_top") == 0){
+  }else if(this->vertical_swing_state_ == "middle_top"){
       vertical_swing = PANASONIC_VERTICAL_VANE_MIDDLE_TOP;
-  }else if(strcmp(this->vertical_swing_state_, "middle") == 0){
+  }else if(this->vertical_swing_state_ == "middle"){
       vertical_swing = PANASONIC_VERTICAL_VANE_MIDDLE;
-  }else if(strcmp(this->vertical_swing_state_, "middle_bottom") == 0){
+  }else if(this->vertical_swing_state_ == "middle_bottom"){
       vertical_swing = PANASONIC_VERTICAL_VANE_MIDDLE_BOTTOM;
-  }else if(strcmp(this->vertical_swing_state_, "bottom") == 0){
+  }else if(this->vertical_swing_state_ == "bottom"){
       vertical_swing = PANASONIC_VERTICAL_VANE_BOTTOM;
-  }else if(strcmp(this->vertical_swing_state_, "auto") == 0){
+  }else if(this->vertical_swing_state_ == "auto"){
       vertical_swing = PANASONIC_VERTICAL_VANE_AUTO;
   }
 
-  if(strcmp(this->horizontal_swing_state_, "left") == 0){
+  if(this->horizontal_swing_state_ == "left"){
       horizontal_swing = PANASONIC_HORIZONTAL_VANE_LEFT;
-  }else if(strcmp(this->horizontal_swing_state_, "center_left") == 0){
+  }else if(this->horizontal_swing_state_ == "center_left"){
       horizontal_swing = PANASONIC_HORIZONTAL_VANE_CENTER_LEFT; 
-  }else if(strcmp(this->horizontal_swing_state_, "center") == 0){
+  }else if(this->horizontal_swing_state_ == "center"){
       horizontal_swing = PANASONIC_HORIZONTAL_VANE_CENTER;
-  }else if(strcmp(this->horizontal_swing_state_, "center_right") == 0){
+  }else if(this->horizontal_swing_state_ == "center_right"){
       horizontal_swing = PANASONIC_HORIZONTAL_VANE_CENTER_RIGHT;
-  }else if(strcmp(this->horizontal_swing_state_, "right") == 0){
+  }else if(this->horizontal_swing_state_ == "right"){
       horizontal_swing = PANASONIC_HORIZONTAL_VANE_RIGHT;
-  }else if(strcmp(this->horizontal_swing_state_, "auto") == 0){
+  }else if(this->horizontal_swing_state_ == "auto"){
       horizontal_swing = PANASONIC_HORIZONTAL_VANE_AUTO;
   }
 
