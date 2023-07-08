@@ -56,7 +56,7 @@ const uint8_t DATACONST[8] = {0x40, 0x04, 0x07, 0x20, 0x00, 0x00, 0x00, 0x60};  
 const uint8_t DATACONST_LENGTH = 8;
 const uint8_t MESSAGE_LENGTH = 19;
 
-void MitsubishiHeatPump::update_swing_horizontal(const std::string &swing) {
+void PanasonicClimate::update_swing_horizontal(const std::string &swing) {
   this->horizontal_swing_state_ = swing;
 
   if (this->horizontal_vane_select_ != nullptr &&
@@ -69,7 +69,7 @@ void MitsubishiHeatPump::update_swing_horizontal(const std::string &swing) {
   this->transmit_state();
 }
 
-void MitsubishiHeatPump::update_swing_vertical(const std::string &swing) {
+void PanasonicClimate::update_swing_vertical(const std::string &swing) {
   this->vertical_swing_state_ = swing;
 
   if (this->vertical_vane_select_ != nullptr &&
@@ -81,7 +81,7 @@ void MitsubishiHeatPump::update_swing_vertical(const std::string &swing) {
 
 }
 
-void MitsubishiHeatPump::set_vertical_vane_select(
+void PanasonicClimate::set_vertical_vane_select(
     select::Select *vertical_vane_select) {
   this->vertical_vane_select_ = vertical_vane_select;
   this->vertical_vane_select_->add_on_state_callback(
@@ -93,7 +93,7 @@ void MitsubishiHeatPump::set_vertical_vane_select(
   this->decode_state();
 }
 
-void MitsubishiHeatPump::set_horizontal_vane_select(
+void PanasonicClimate::set_horizontal_vane_select(
     select::Select *horizontal_vane_select) {
   this->horizontal_vane_select_ = horizontal_vane_select;
   this->horizontal_vane_select_->add_on_state_callback(
