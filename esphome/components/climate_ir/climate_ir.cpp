@@ -50,7 +50,7 @@ void ClimateIR::setup() {
     this->target_temperature =
         roundf(clamp(this->current_temperature, this->minimum_temperature_, this->maximum_temperature_));
     this->fan_mode = climate::CLIMATE_FAN_AUTO;
-    this->swing_mode = climate::CLIMATE_SWING_OFF;
+    this->swing_mode = climate::CLIMATE_SWING_AUTO;
     this->preset = climate::CLIMATE_PRESET_NONE;
   }
   // Never send nan to HA
