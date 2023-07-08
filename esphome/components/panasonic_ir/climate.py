@@ -8,7 +8,7 @@ from esphome.const import (
     CONF_SUPPORTS_VERTICAL_SWING,
 )
 
-AUTO_LOAD = ["climate_ir"]
+AUTO_LOAD = ["climate_ir", "select"]
 
 CONF_HORIZONTAL_SWING_SELECT = "horizontal_vane_select"
 CONF_VERTICAL_SWING_SELECT = "vertical_vane_select"
