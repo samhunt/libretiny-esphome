@@ -44,16 +44,21 @@ class ClimateIR : public climate::Climate, public Component, public remote_base:
   void set_supported_swing_modes(bool horizontal, bool vertical, bool both) {
     this->swing_modes_.clear();
     if (horizontal || vertical || both)
-      this->swing_modes_.insert(climate::CLIMATE_SWING_OFF);
+      this->swing_modes_.insert(climate::CLIMATE_SWING_AUTO);
 
-    if (horizontal)
-      this->swing_modes_.insert(climate::CLIMATE_SWING_HORIZONTAL);
+    if (horizontal){
+      this->swing_modes_.insert(climate::CLIMATE_SWING_TOP);
+      this->swing_modes_.insert(climate::CLIMATE_SWING_MIDDLE_TOP);
+      this->swing_modes_.insert(climate::CLIMATE_SWING_MIDDLE);
+      this->swing_modes_.insert(climate::CLIMATE_SWING_MIDDLE_BOTTOM);
+      this->swing_modes_.insert(climate::CLIMATE_SWING_BOTTOM);
+    }
 
-    if (vertical)
-      this->swing_modes_.insert(climate::CLIMATE_SWING_VERTICAL);
+    // if (vertical)
+    //   this->swing_modes_.insert(climate::CLIMATE_SWING_VERTICAL);
 
-    if (both)
-      this->swing_modes_.insert(climate::CLIMATE_SWING_BOTH);
+    // if (both)
+    //   this->swing_modes_.insert(climate::CLIMATE_SWING_BOTH);
   }
 
  protected:
