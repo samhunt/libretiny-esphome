@@ -121,17 +121,17 @@ class ClimateTraits {
   void set_supported_swing_modes(std::set<ClimateSwingMode> modes) { supported_swing_modes_ = std::move(modes); }
   void add_supported_swing_mode(ClimateSwingMode mode) { supported_swing_modes_.insert(mode); }
   ESPDEPRECATED("This method is deprecated, use set_supported_swing_modes() instead", "v1.20")
-  void set_supports_swing_mode_off(bool supported) { set_swing_mode_support_(CLIMATE_SWING_AUTO, supported); }
+  void set_supports_swing_mode_auto(bool supported) { set_swing_mode_support_(CLIMATE_SWING_AUTO, supported); }
   ESPDEPRECATED("This method is deprecated, use set_supported_swing_modes() instead", "v1.20")
-  void set_supports_swing_mode_both(bool supported) { set_swing_mode_support_(CLIMATE_SWING_TOP, supported); }
+  void set_supports_swing_mode_top(bool supported) { set_swing_mode_support_(CLIMATE_SWING_TOP, supported); }
   ESPDEPRECATED("This method is deprecated, use set_supported_swing_modes() instead", "v1.20")
-  void set_supports_swing_mode_vertical(bool supported) { set_swing_mode_support_(CLIMATE_SWING_MIDDLE_TOP, supported); }
+  void set_supports_swing_mode_middle_top(bool supported) { set_swing_mode_support_(CLIMATE_SWING_MIDDLE_TOP, supported); }
   ESPDEPRECATED("This method is deprecated, use set_supported_swing_modes() instead", "v1.20")
-  void set_supports_swing_mode_vertical(bool supported) { set_swing_mode_support_(CLIMATE_SWING_MIDDLE, supported); }
+  void set_supports_swing_mode_middle(bool supported) { set_swing_mode_support_(CLIMATE_SWING_MIDDLE, supported); }
   ESPDEPRECATED("This method is deprecated, use set_supported_swing_modes() instead", "v1.20")
-  void set_supports_swing_mode_vertical(bool supported) { set_swing_mode_support_(CLIMATE_SWING_MIDDLE_BOTTOM, supported); }
+  void set_supports_swing_mode_middle_bottom(bool supported) { set_swing_mode_support_(CLIMATE_SWING_MIDDLE_BOTTOM, supported); }
   ESPDEPRECATED("This method is deprecated, use set_supported_swing_modes() instead", "v1.20")
-  void set_supports_swing_mode_vertical(bool supported) { set_swing_mode_support_(CLIMATE_SWING_BOTTOM, supported); }
+  void set_supports_swing_mode_bottom(bool supported) { set_swing_mode_support_(CLIMATE_SWING_BOTTOM, supported); }
   ESPDEPRECATED("This method is deprecated, use set_supported_swing_modes() instead", "v1.20")
   // void set_supports_swing_mode_horizontal(bool supported) {
   //   set_swing_mode_support_(CLIMATE_SWING_HORIZONTAL, supported);
