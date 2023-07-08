@@ -214,17 +214,17 @@ void PanasonicClimate::transmit_state() {
       vertical_swing = PANASONIC_VERTICAL_VANE_AUTO;
   }
 
-  if(strcmp(this->horizontal_vane_state_, "left") == 0){
+  if(strcmp(this->horizontal_swing_state_, "left") == 0){
       horizontal_swing = PANASONIC_HORIZONTAL_VANE_LEFT;
-  }else if(strcmp(this->horizontal_vane_state_, "center_left") == 0){
+  }else if(strcmp(this->horizontal_swing_state_, "center_left") == 0){
       horizontal_swing = PANASONIC_HORIZONTAL_VANE_CENTER_LEFT; 
-  }else if(strcmp(this->horizontal_vane_state_, "center") == 0){
+  }else if(strcmp(this->horizontal_swing_state_, "center") == 0){
       horizontal_swing = PANASONIC_HORIZONTAL_VANE_CENTER;
-  }else if(strcmp(this->horizontal_vane_state_, "center_right") == 0){
+  }else if(strcmp(this->horizontal_swing_state_, "center_right") == 0){
       horizontal_swing = PANASONIC_HORIZONTAL_VANE_CENTER_RIGHT;
-  }else if(strcmp(this->horizontal_vane_state_, "right") == 0){
+  }else if(strcmp(this->horizontal_swing_state_, "right") == 0){
       horizontal_swing = PANASONIC_HORIZONTAL_VANE_RIGHT;
-  }else if(strcmp(this->horizontal_vane_state_, "auto") == 0){
+  }else if(strcmp(this->horizontal_swing_state_, "auto") == 0){
       horizontal_swing = PANASONIC_HORIZONTAL_VANE_AUTO;
   }
 
