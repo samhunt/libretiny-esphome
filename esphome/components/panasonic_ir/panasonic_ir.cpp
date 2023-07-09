@@ -348,7 +348,7 @@ bool PanasonicClimate::on_receive(remote_base::RemoteReceiveData data) {
   }
 
   for(auto i = 0; i < MESSAGE_LENGTH; i++){
-    ESP_LOGV(TAG, "on_receive, message[%d] = %d", i, message[i]);
+    ESP_LOGV(TAG, "on_receive, message[%d] = %x", i, message[i]);
   }
 
   /* Reverse message bytes */
