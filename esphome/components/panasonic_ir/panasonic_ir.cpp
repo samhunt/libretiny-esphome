@@ -318,6 +318,8 @@ bool PanasonicClimate::on_receive(remote_base::RemoteReceiveData data) {
   uint8_t message[MESSAGE_LENGTH] = {0};
   ESP_LOGV(TAG, "on_receive");
 
+  ESP_LOGV(TAG, data);
+
   /* Validate header */
   if (!data.expect_item(PANASONIC_HEADER_MARK, PANASONIC_HEADER_SPACE)) {
     ESP_LOGV(TAG, "Invalid Header");
