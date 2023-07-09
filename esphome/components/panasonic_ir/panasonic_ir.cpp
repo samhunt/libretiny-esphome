@@ -317,9 +317,6 @@ void PanasonicClimate::transmit_state() {
 bool PanasonicClimate::on_receive(remote_base::RemoteReceiveData data) {
   uint8_t message[MESSAGE_LENGTH] = {0};
   ESP_LOGV(TAG, "on_receive");
-
-
-  RemoteReceiverDumper::dump(data);
   
   /* Validate header */
   if (!data.expect_item(PANASONIC_HEADER_MARK, PANASONIC_HEADER_SPACE)) {
