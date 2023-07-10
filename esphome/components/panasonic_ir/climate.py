@@ -16,7 +16,7 @@ CONF_VERTICAL_SWING_SELECT = "vertical_swing_select"
 panasonic_ns = cg.esphome_ns.namespace("panasonic_ir")
 PanasonicClimate = panasonic_ns.class_("PanasonicClimate", climate_ir.ClimateIR)
 
-PanasonicACSelect = cg.global_ns.class_(
+PanasonicACSelect = panasonic_ns.class_(
     "PanasonicACSelect", select.Select, cg.Component
 )
 
