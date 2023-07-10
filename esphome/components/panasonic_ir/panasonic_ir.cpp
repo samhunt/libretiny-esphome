@@ -7,7 +7,7 @@ namespace panasonic_ir {
 
 const uint16_t PANASONIC_HEADER_MARK = 3456;
 const uint16_t PANASONIC_HEADER_SPACE = 1728;
-const uint16_t PANASONIC_GAP_SPACE = 10250;
+const uint16_t PANASONIC_GAP_SPACE = 10000;
 const uint16_t PANASONIC_BIT_MARK = 432;
 const uint16_t PANASONIC_ZERO_SPACE = 432;
 const uint16_t PANASONIC_ONE_SPACE = 1296;
@@ -65,9 +65,6 @@ void PanasonicClimate::update_swing_horizontal(const std::string &swing) {
         this->horizontal_swing_state_);  // Set current horizontal swing
                                          // position
   }
-  
-  // TODO: trigger update somehow
-  // PanasonicClimate::decode_state();
 }
 
 void PanasonicClimate::update_swing_vertical(const std::string &swing) {
@@ -77,9 +74,6 @@ void PanasonicClimate::update_swing_vertical(const std::string &swing) {
       this->vertical_vane_select_->state != this->vertical_swing_state_)
     this->vertical_vane_select_->publish_state(
         this->vertical_swing_state_);  // Set current vertical swing position
-
-  // TODO: trigger update somehow
-  // PanasonicClimate::decode_state();
 }
 
 void PanasonicClimate::set_vertical_vane_select(
@@ -229,6 +223,12 @@ void PanasonicClimate::transmit_state() {
   }else if(this->horizontal_swing_state_ == "auto"){
       horizontal_swing = PANASONIC_HORIZONTAL_VANE_AUTO;
   }
+  
+  ESP_LOGV(TAG, "vertical_swing_state_ %s", this->vertical_swing_state_);
+  ESP_LOGV(TAG, "vertical_swing_state_ %s", this->vertical_swing_state_.c_str());
+  ESP_LOGV(TAG, "horizontal_swing_state_ %s", this->horizontal_swing_state_);
+  ESP_LOGV(TAG, "horizontal_swing_state_ %s", this->horizontal_swing_state_.c_str());
+
 
   message[8] = message[8] | vertical_swing;
   message[9] = message[9] | horizontal_swing;
