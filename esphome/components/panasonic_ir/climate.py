@@ -10,8 +10,8 @@ from esphome.const import (
 
 AUTO_LOAD = ["climate_ir", "select"]
 
-CONF_HORIZONTAL_SWING_SELECT = "horizontal_vane_select"
-CONF_VERTICAL_SWING_SELECT = "vertical_vane_select"
+CONF_HORIZONTAL_SWING_SELECT = "horizontal_swing_select"
+CONF_VERTICAL_SWING_SELECT = "vertical_swing_select"
 
 panasonic_ns = cg.esphome_ns.namespace("panasonic_ir")
 PanasonicClimate = panasonic_ns.class_("PanasonicClimate", climate_ir.ClimateIR)
