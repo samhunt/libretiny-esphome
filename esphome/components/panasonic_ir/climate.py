@@ -58,15 +58,13 @@ async def to_code(config):
         )
     )
 
-    if (CONF_HORIZONTAL_SWING_SELECT in config 
-        and (CONF_SUPPORTS_HORIZONTAL_SWING in config or CONF_SUPPORTS_BOTH_SWING in config)):
+    if CONF_HORIZONTAL_SWING_SELECT in config:
         conf = config[CONF_HORIZONTAL_SWING_SELECT]
         swing_select = await select.new_select(conf, options=HORIZONTAL_SWING_OPTIONS)
         await cg.register_component(swing_select, conf)
         cg.add(var.set_horizontal_vane_select(swing_select))
 
-    if (CONF_VERTICAL_SWING_SELECT in config 
-        and (CONF_SUPPORTS_VERTICAL_SWING in config or CONF_SUPPORTS_BOTH_SWING in config)):
+    if CONF_VERTICAL_SWING_SELECT in config:
         conf = config[CONF_VERTICAL_SWING_SELECT]
         swing_select = await select.new_select(conf, options=VERTICAL_SWING_OPTIONS)
         await cg.register_component(swing_select, conf)
