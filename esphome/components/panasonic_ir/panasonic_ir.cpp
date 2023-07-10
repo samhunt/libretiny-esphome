@@ -82,6 +82,7 @@ void PanasonicClimate::set_vertical_vane_select(
   this->vertical_vane_select_->add_on_state_callback(
       [this](const std::string &value, size_t index) {
         if (value == this->vertical_swing_state_) return;
+        this->vertical_swing_state_ = value;
         PanasonicClimate::transmit_state();
       });
 }
@@ -92,6 +93,7 @@ void PanasonicClimate::set_horizontal_vane_select(
   this->horizontal_vane_select_->add_on_state_callback(
       [this](const std::string &value, size_t index) {
         if (value == this->horizontal_swing_state_) return;
+        this->horizontal_swing_state_ = value;
         PanasonicClimate::transmit_state();
       });
 }
@@ -196,6 +198,7 @@ void PanasonicClimate::transmit_state() {
       horizontal_swing = PANASONIC_HORIZONTAL_VANE_CENTER;
   }
 
+
   if(this->vertical_swing_state_ == "top"){
       vertical_swing = PANASONIC_VERTICAL_VANE_TOP;
   }else if(this->vertical_swing_state_ == "middle_top"){
@@ -224,10 +227,10 @@ void PanasonicClimate::transmit_state() {
       horizontal_swing = PANASONIC_HORIZONTAL_VANE_AUTO;
   }
   
-  ESP_LOGV(TAG, "vertical_swing_state_ %s", this->vertical_vane_select_.c_str());
-  ESP_LOGV(TAG, "vertical_swing_state_ %s", this->vertical_vane_select_);
-  ESP_LOGV(TAG, "horizontal_swing_state_ %s", this->vertical_vane_select_.c_str());
-  ESP_LOGV(TAG, "horizontal_swing_state_ %s", this->vertical_vane_select_);
+  ESP_LOGV(TAG, "vertical_swing_state_ %s", this->vertical_swing_state_.c_str());
+  ESP_LOGV(TAG, "vertical_swing_state_ %s", this->vertical_swing_state_);
+  ESP_LOGV(TAG, "horizontal_swing_state_ %s", this->horizontal_swing_state_.c_str());
+  ESP_LOGV(TAG, "horizontal_swing_state_ %s", this->horizontal_swing_state_);
 
 
   message[8] = message[8] | vertical_swing;
