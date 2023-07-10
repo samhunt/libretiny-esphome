@@ -224,10 +224,10 @@ void PanasonicClimate::transmit_state() {
       horizontal_swing = PANASONIC_HORIZONTAL_VANE_AUTO;
   }
   
-  ESP_LOGV(TAG, "vertical_swing_state_ %s", this->vertical_swing_state_);
-  ESP_LOGV(TAG, "vertical_swing_state_ %s", this->vertical_swing_state_.c_str());
-  ESP_LOGV(TAG, "horizontal_swing_state_ %s", this->horizontal_swing_state_);
-  ESP_LOGV(TAG, "horizontal_swing_state_ %s", this->horizontal_swing_state_.c_str());
+  ESP_LOGV(TAG, "vertical_swing_state_ %s", this->vertical_vane_select_.c_str());
+  ESP_LOGV(TAG, "vertical_swing_state_ %s", this->vertical_vane_select_);
+  ESP_LOGV(TAG, "horizontal_swing_state_ %s", this->vertical_vane_select_.c_str());
+  ESP_LOGV(TAG, "horizontal_swing_state_ %s", this->vertical_vane_select_);
 
 
   message[8] = message[8] | vertical_swing;
