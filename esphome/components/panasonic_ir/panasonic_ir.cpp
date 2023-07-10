@@ -5,12 +5,12 @@
 namespace esphome {
 namespace panasonic_ir {
 
-const uint16_t PANASONIC_HEADER_MARK = 3500;
-const uint16_t PANASONIC_HEADER_SPACE = 1800;
-const uint16_t PANASONIC_GAP_SPACE = 10000;
-const uint16_t PANASONIC_BIT_MARK = 40;
-const uint16_t PANASONIC_ZERO_SPACE = 470;
-const uint16_t PANASONIC_ONE_SPACE = 1350;
+const uint16_t PANASONIC_HEADER_MARK = 3456;
+const uint16_t PANASONIC_HEADER_SPACE = 1728;
+const uint16_t PANASONIC_GAP_SPACE = 10250;
+const uint16_t PANASONIC_BIT_MARK = 432;
+const uint16_t PANASONIC_ZERO_SPACE = 432;
+const uint16_t PANASONIC_ONE_SPACE = 1296;
 
 // useful link
 // https://github.com/r45635/HVAC-IR-Control/blob/master/Protocol/Panasonic%20HVAC%20IR%20Protocol%20specification.pdf
