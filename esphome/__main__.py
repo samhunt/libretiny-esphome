@@ -26,9 +26,10 @@ from esphome.const import (
     CONF_ESPHOME,
     CONF_PLATFORMIO_OPTIONS,
     CONF_SUBSTITUTIONS,
+    PLATFORM_BK72XX,
+    PLATFORM_RTL87XX,
     PLATFORM_ESP32,
     PLATFORM_ESP8266,
-    PLATFORM_LIBRETINY,
     PLATFORM_RP2040,
     SECRETS_FILES,
 )
@@ -296,7 +297,7 @@ def upload_program(config, args, host):
         if CORE.target_platform in (PLATFORM_RP2040):
             return upload_using_platformio(config, args.device)
 
-        if CORE.target_platform in (PLATFORM_LIBRETINY):
+        if CORE.target_platform in (PLATFORM_BK72XX, PLATFORM_RTL87XX):
             return upload_using_platformio(config, host)
 
         return 1  # Unknown target platform
@@ -371,10 +372,16 @@ def command_wizard(args):
 
 
 def command_config(args, config):
-    _LOGGER.info("Configuration is valid!")
     if not CORE.verbose:
         config = strip_default_ids(config)
-    safe_print(yaml_util.dump(config, args.show_secrets))
+    output = yaml_util.dump(config, args.show_secrets)
+    # add the console decoration so the front-end can hide the secrets
+    if not args.show_secrets:
+        output = re.sub(
+            r"(password|key|psk|ssid)\:\s(.*)", r"\1: \\033[5m\2\\033[6m", output
+        )
+    safe_print(output)
+    _LOGGER.info("Configuration is valid!")
     return 0
 
 
