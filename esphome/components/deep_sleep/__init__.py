@@ -23,7 +23,6 @@ from esphome.components.esp32.const import (
     VARIANT_ESP32C3,
     VARIANT_ESP32S2,
     VARIANT_ESP32S3,
-    VARIANT_ESP32C2,
     VARIANT_ESP32C6,
 )
 from esphome.core import CORE
