@@ -87,7 +87,6 @@ class Select : public EntityBase, public PollingComponent {
   CallbackManager<void(std::string, size_t)> state_callback_;
   bool has_state_{false};
   
-  void control(const std::string &value) override;
   bool optimistic_ = false;
   std::string initial_option_;
   bool restore_value_ = false;
