@@ -1,6 +1,6 @@
 """Constants used by esphome."""
 
-__version__ = "2023.7.0-dev"
+__version__ = "2023.9.0-dev"
 
 ALLOWED_NAME_CHARS = "abcdefghijklmnopqrstuvwxyz0123456789-_"
 VALID_SUBSTITUTIONS_CHARACTERS = (
@@ -10,15 +10,19 @@ VALID_SUBSTITUTIONS_CHARACTERS = (
 PLATFORM_ESP32 = "esp32"
 PLATFORM_ESP8266 = "esp8266"
 PLATFORM_RP2040 = "rp2040"
-PLATFORM_LIBRETINY = "libretiny"
 PLATFORM_HOST = "host"
+PLATFORM_BK72XX = "bk72xx"
+PLATFORM_RTL87XX = "rtl87xx"
+PLATFORM_LIBRETINY_OLDSTYLE = "libretiny"
 
 TARGET_PLATFORMS = [
     PLATFORM_ESP32,
     PLATFORM_ESP8266,
     PLATFORM_RP2040,
-    PLATFORM_LIBRETINY,
     PLATFORM_HOST,
+    PLATFORM_BK72XX,
+    PLATFORM_RTL87XX,
+    PLATFORM_LIBRETINY_OLDSTYLE,
 ]
 
 SOURCE_FILE_EXTENSIONS = {".cpp", ".hpp", ".h", ".c", ".tcc", ".ino"}
@@ -44,6 +48,7 @@ CONF_ADVANCED = "advanced"
 CONF_AFTER = "after"
 CONF_ALPHA = "alpha"
 CONF_ALTITUDE = "altitude"
+CONF_ANALOG = "analog"
 CONF_AND = "and"
 CONF_AP = "ap"
 CONF_APPARENT_POWER = "apparent_power"
@@ -269,6 +274,7 @@ CONF_FINGER_ID = "finger_id"
 CONF_FINGERPRINT_COUNT = "fingerprint_count"
 CONF_FLASH_LENGTH = "flash_length"
 CONF_FLASH_TRANSITION_LENGTH = "flash_transition_length"
+CONF_FLOW = "flow"
 CONF_FLOW_CONTROL_PIN = "flow_control_pin"
 CONF_FOR = "for"
 CONF_FORCE_UPDATE = "force_update"
@@ -293,6 +299,7 @@ CONF_GPIO = "gpio"
 CONF_GREEN = "green"
 CONF_GROUP = "group"
 CONF_HARDWARE_UART = "hardware_uart"
+CONF_HEAD = "head"
 CONF_HEARTBEAT = "heartbeat"
 CONF_HEAT_ACTION = "heat_action"
 CONF_HEAT_DEADBAND = "heat_deadband"
@@ -902,6 +909,7 @@ UNIT_CENTIMETER = "cm"
 UNIT_COUNT_DECILITRE = "/dL"
 UNIT_COUNTS_PER_CUBIC_METER = "#/m³"
 UNIT_CUBIC_METER = "m³"
+UNIT_CUBIC_METER_PER_HOUR = "m³/h"
 UNIT_DECIBEL = "dB"
 UNIT_DECIBEL_MILLIWATT = "dBm"
 UNIT_DEGREE_PER_SECOND = "°/s"
@@ -939,6 +947,7 @@ UNIT_PERCENT = "%"
 UNIT_PH = "pH"
 UNIT_PULSES = "pulses"
 UNIT_PULSES_PER_MINUTE = "pulses/min"
+UNIT_REVOLUTIONS_PER_MINUTE = "RPM"
 UNIT_SECOND = "s"
 UNIT_STEPS = "steps"
 UNIT_VOLT = "V"
@@ -995,6 +1004,7 @@ DEVICE_CLASS_OCCUPANCY = "occupancy"
 DEVICE_CLASS_OPENING = "opening"
 DEVICE_CLASS_OUTLET = "outlet"
 DEVICE_CLASS_OZONE = "ozone"
+DEVICE_CLASS_PH = "ph"
 DEVICE_CLASS_PLUG = "plug"
 DEVICE_CLASS_PM1 = "pm1"
 DEVICE_CLASS_PM10 = "pm10"
