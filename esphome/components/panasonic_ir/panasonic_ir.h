@@ -39,8 +39,8 @@ class PanasonicClimate : public climate_ir::ClimateIR {
   bool supports_vertical_{false};
   bool supports_horizontal_{false};
 
-  template_::TemplateSelect *vertical_vane_select_ = nullptr;    // Select to store manual position of vertical swing
-  template_::TemplateSelect *horizontal_vane_select_ = nullptr;  // Select to store manual position of horizontal swing
+  select::Select *vertical_vane_select_ = nullptr;    // Select to store manual position of vertical swing
+  select::Select *horizontal_vane_select_ = nullptr;  // Select to store manual position of horizontal swing
 
   // When received command to change the vane positions
   void on_horizontal_swing_change(const std::string &swing);
