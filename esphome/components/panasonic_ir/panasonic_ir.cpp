@@ -57,7 +57,15 @@ const uint8_t DATACONST_LENGTH = 8;
 const uint8_t MESSAGE_LENGTH = 19;
 
 void PanasonicClimate::setup(){
-
+  if (this->sensor_) {
+    this->sensor_->add_on_state_callback([this](float state) {
+      this->current_temperature = state;
+      // current temperature changed, publish state
+      this->publish_state();
+    });
+    this->current_temperature = this->sensor_->state;
+  } else
+    this->current_temperature = NAN;
   // restore set points
   auto restore = this->restore_state_();
   if (restore.has_value()) {
@@ -73,6 +81,9 @@ void PanasonicClimate::setup(){
     this->update_swing_vertical("center");
     this->update_swing_horizontal("middle");
   }
+  // Never send nan to HA
+  if (std::isnan(this->target_temperature))
+    this->target_temperature = 24;
 }
 
 void PanasonicClimate::update_swing_horizontal(const std::string &swing) {
