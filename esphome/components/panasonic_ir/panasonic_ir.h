@@ -18,6 +18,7 @@ class PanasonicClimate : public climate_ir::ClimateIR {
                                climate::CLIMATE_FAN_HIGH}) {}
 
 
+  void setup() override;
   void set_vertical_vane_select(select::Select *vertical_vane_select);
   void set_horizontal_vane_select(select::Select *horizontal_vane_select);
 
