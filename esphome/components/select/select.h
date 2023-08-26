@@ -28,7 +28,7 @@ namespace select {
  *
  * A select can use publish_state to send out a new value.
  */
-class Select : public EntityBase {
+class Select : public EntityBase, public PollingComponent {
  public:
   std::string state;
   SelectTraits traits;
