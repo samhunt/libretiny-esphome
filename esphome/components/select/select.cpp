@@ -7,7 +7,7 @@ namespace select {
 static const char *const TAG = "select";
 
 
-void TemplateSelect::setup() {
+void Select::setup() {
   if (this->f_.has_value())
     return;
 
@@ -34,7 +34,7 @@ void TemplateSelect::setup() {
   this->publish_state(value);
 }
 
-void TemplateSelect::update() {
+void Select::update() {
   if (!this->f_.has_value())
     return;
 
@@ -50,7 +50,7 @@ void TemplateSelect::update() {
   this->publish_state(*val);
 }
 
-void TemplateSelect::control(const std::string &value) {
+void Select::control(const std::string &value) {
   this->set_trigger_->trigger(value);
 
   if (this->optimistic_)
@@ -62,7 +62,7 @@ void TemplateSelect::control(const std::string &value) {
   }
 }
 
-void TemplateSelect::dump_config() {
+void Select::dump_config() {
   LOG_SELECT("", "Select", this);
   LOG_UPDATE_INTERVAL(this);
   if (this->f_.has_value())
