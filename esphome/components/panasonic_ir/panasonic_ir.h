@@ -1,7 +1,7 @@
 #pragma once
 
 #include "esphome/components/climate_ir/climate_ir.h"
-#include "esphome/components/template/select/select.h"
+#include "esphome/components/template/select/template_select.h"
 
 namespace esphome {
 namespace panasonic_ir {
