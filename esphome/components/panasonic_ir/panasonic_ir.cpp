@@ -56,6 +56,25 @@ const uint8_t DATACONST[8] = {0x40, 0x04, 0x07, 0x20, 0x00, 0x00, 0x00, 0x60};  
 const uint8_t DATACONST_LENGTH = 8;
 const uint8_t MESSAGE_LENGTH = 19;
 
+void PanasonicClimate::setup(){
+
+  // restore set points
+  auto restore = this->restore_state_();
+  if (restore.has_value()) {
+    restore->apply(this);
+  } else {
+    // restore from defaults
+    this->mode = climate::CLIMATE_MODE_OFF;
+    // initialize target temperature to some value so that it's not NAN
+    this->target_temperature =
+        roundf(clamp(this->current_temperature, this->minimum_temperature_, this->maximum_temperature_));
+    this->fan_mode = climate::CLIMATE_FAN_AUTO;
+    this->swing_mode = climate::CLIMATE_SWING_OFF;
+    this->update_swing_vertical("center");
+    this->update_swing_horizontal("middle");
+  }
+}
+
 void PanasonicClimate::update_swing_horizontal(const std::string &swing) {
   this->horizontal_swing_state_ = swing;
 
@@ -226,12 +245,6 @@ void PanasonicClimate::transmit_state() {
   }else if(this->horizontal_swing_state_ == "auto"){
       horizontal_swing = PANASONIC_HORIZONTAL_VANE_AUTO;
   }
-  
-  ESP_LOGV(TAG, "vertical_swing_state_ %s", this->vertical_swing_state_.c_str());
-  ESP_LOGV(TAG, "vertical_swing_state_ %s", this->vertical_swing_state_);
-  ESP_LOGV(TAG, "horizontal_swing_state_ %s", this->horizontal_swing_state_.c_str());
-  ESP_LOGV(TAG, "horizontal_swing_state_ %s", this->horizontal_swing_state_);
-
 
   message[8] = message[8] | vertical_swing;
   message[9] = message[9] | horizontal_swing;
@@ -363,7 +376,7 @@ bool PanasonicClimate::on_receive(remote_base::RemoteReceiveData data) {
   if ((message[4] & 0b11110000) == 0x80) {
     // This is a non-standard command, not yet supported
     // Econavi, powerful, quiet, nanoe-g, auto comfort
-    ESP_LOGD(TAG, "Unsupported command received: %s", hexencode(message, MESSAGE_LENGTH).c_str());
+    ESP_LOGD(TAG, "Unsupported command received: %s", format_hex_pretty(message, MESSAGE_LENGTH).c_str());
     return true;
   }
 
@@ -446,22 +459,22 @@ bool PanasonicClimate::on_receive(remote_base::RemoteReceiveData data) {
   if(supports_horizontal){
     switch(message[8] &  0b00001111) {
       case PANASONIC_HORIZONTAL_VANE_LEFT:
-        this->update_swing_vertical("left");
+        this->update_swing_horizontal("left");
         break;
       case PANASONIC_HORIZONTAL_VANE_CENTER_LEFT:
-        this->update_swing_vertical("center_left");
+        this->update_swing_horizontal("center_left");
         break;
       case PANASONIC_HORIZONTAL_VANE_CENTER:
-        this->update_swing_vertical("center");
+        this->update_swing_horizontal("center");
         break;
       case PANASONIC_HORIZONTAL_VANE_CENTER_RIGHT:
-        this->update_swing_vertical("center_right");
+        this->update_swing_horizontal("center_right");
         break;
       case PANASONIC_HORIZONTAL_VANE_RIGHT:
-        this->update_swing_vertical("right");
+        this->update_swing_horizontal("right");
         break;
       case PANASONIC_HORIZONTAL_VANE_AUTO:
-        this->update_swing_vertical("auto");
+        this->update_swing_horizontal("auto");
         break;
     }
   }
