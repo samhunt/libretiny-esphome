@@ -1,7 +1,7 @@
 #pragma once
 
 #include "esphome/components/climate_ir/climate_ir.h"
-#include "esphome/components/template/select/template_select.h"
+#include "esphome/components/select/select.h"
 
 namespace esphome {
 namespace panasonic_ir {
@@ -21,8 +21,8 @@ class PanasonicClimate : public climate_ir::ClimateIR {
     }
 
   void setup() override;
-  void set_vertical_vane_select(template_::TemplateSelect *vertical_vane_select);
-  void set_horizontal_vane_select(template_::TemplateSelect *horizontal_vane_select);
+  void set_vertical_vane_select(select::Select *vertical_vane_select);
+  void set_horizontal_vane_select(select::Select *horizontal_vane_select);
 
  protected:
   /// Transmit via IR the state of this climate controller.
