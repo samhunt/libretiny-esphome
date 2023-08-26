@@ -80,21 +80,13 @@ void PanasonicClimate::setup() {
   }
 
   if (this->supports_vertical_) {
-    auto restore = this->vertical_vane_select_->restore_state_();
-    if (restore.has_value()) {
-      restore->apply(this);
-    } else {
-      this->update_swing_vertical("center");
-    }
+    this->vertical_vane_select_->set_initial_option("center");
+    this->vertical_vane_select_->setup();
   }
 
   if (this->supports_horizontal_) {
-    auto restore = this->horizontal_vane_select_->restore_state_();
-    if (restore.has_value()) {
-      restore->apply(this);
-    } else {
-      this->update_swing_horizontal("middle");
-    }
+    this->horizontal_vane_select_->set_initial_option("middle");
+    this->vertical_vane_select_->setup();    
   }
 
   // Never send nan to HA
