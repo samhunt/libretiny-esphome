@@ -15,7 +15,10 @@ class PanasonicClimate : public climate_ir::ClimateIR {
   PanasonicClimate()
       : climate_ir::ClimateIR(PANASONIC_TEMP_MIN, PANASONIC_TEMP_MAX, 1.0f, true, true,
                               {climate::CLIMATE_FAN_AUTO, climate::CLIMATE_FAN_LOW, climate::CLIMATE_FAN_MEDIUM,
-                               climate::CLIMATE_FAN_HIGH}) {}
+                               climate::CLIMATE_FAN_HIGH}) {
+      this->supports_vertical_ = this->get_traits().supports_swing_mode(climate::CLIMATE_SWING_VERTICAL);
+      this->supports_horizontal_ = this->get_traits().supports_swing_mode(climate::CLIMATE_SWING_HORIZONTAL);
+    }
 
   void setup() override;
   void set_vertical_vane_select(select::Select *vertical_vane_select);
@@ -32,6 +35,9 @@ class PanasonicClimate : public climate_ir::ClimateIR {
   void update_swing_vertical(const std::string &swing);
   std::string vertical_swing_state_;
   std::string horizontal_swing_state_;
+  
+  bool supports_vertical_{false};
+  bool supports_horizontal_{false};
 
   select::Select *vertical_vane_select_ = nullptr;    // Select to store manual position of vertical swing
   select::Select *horizontal_vane_select_ = nullptr;  // Select to store manual position of horizontal swing
