@@ -1,6 +1,6 @@
 #pragma once
 
-#include "esphome/components/template/select/template_select.h"
+#include "esphome/components/select/select.h"
 #include "esphome/core/component.h"
 
 namespace esphome {
