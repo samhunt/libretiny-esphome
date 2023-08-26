@@ -5,6 +5,9 @@
 #include "esphome/core/helpers.h"
 #include "select_call.h"
 #include "select_traits.h"
+#include "esphome/core/automation.h"
+#include "esphome/core/component.h"
+#include "esphome/core/preferences.h"
 
 namespace esphome {
 namespace select {
