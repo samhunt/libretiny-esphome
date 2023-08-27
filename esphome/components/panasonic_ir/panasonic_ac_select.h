@@ -1,7 +1,7 @@
 #pragma once
 
 #include "esphome/components/select/select.h"
-#include "esphome/core/component.h"
+#include "esphome/core/log.h"
 
 namespace esphome {
 namespace panasonic_ir {
@@ -10,7 +10,7 @@ class PanasonicACSelect : public select::Select {
   // protected:
   // void control(const std::string &value) override { this->publish_state(value); }
 
-  void Select::setup() override {
+  void setup() override {
     if (this->f_.has_value())
       return;
 
@@ -38,7 +38,7 @@ class PanasonicACSelect : public select::Select {
   }
 
  protected:
-  void Select::control(const std::string &value) override {
+  void control(const std::string &value) override {
     this->set_trigger_->trigger(value);
 
     if (this->optimistic_)
