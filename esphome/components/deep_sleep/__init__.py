@@ -8,6 +8,7 @@ from esphome.const import (
     CONF_MINUTE,
     CONF_MODE,
     CONF_NUMBER,
+    CONF_PIN,
     CONF_PINS,
     CONF_RUN_DURATION,
     CONF_SECOND,
@@ -22,7 +23,9 @@ from esphome.components.esp32.const import (
     VARIANT_ESP32C3,
     VARIANT_ESP32S2,
     VARIANT_ESP32S3,
+    VARIANT_ESP32C6,
 )
+from esphome.core import CORE
 
 WAKEUP_PINS = {
     VARIANT_ESP32: [
@@ -94,10 +97,13 @@ WAKEUP_PINS = {
         20,
         21,
     ],
+    VARIANT_ESP32C6: [0, 1, 2, 3, 4, 5, 6, 7],
 }
 
 
 def validate_pin_number(value):
+    if CORE.is_libretiny:
+        return value
     valid_pins = WAKEUP_PINS.get(get_esp32_variant(), WAKEUP_PINS[VARIANT_ESP32])
     if value[CONF_NUMBER] not in valid_pins:
         raise cv.Invalid(
@@ -107,6 +113,10 @@ def validate_pin_number(value):
 
 
 def validate_config(config):
+    if not CORE.is_libretiny and CONF_WAKEUP_PINS in config:
+        raise cv.Invalid(
+            "Multiple wakeup pins are only supported on LibreTiny platform"
+        )
     if get_esp32_variant() == VARIANT_ESP32C3 and CONF_ESP32_EXT1_WAKEUP in config:
         raise cv.Invalid("ESP32-C3 does not support wakeup from touch.")
     if get_esp32_variant() == VARIANT_ESP32C3 and CONF_TOUCH_WAKEUP in config:
@@ -150,6 +160,7 @@ CONF_DEFAULT = "default"
 CONF_GPIO_WAKEUP_REASON = "gpio_wakeup_reason"
 CONF_TOUCH_WAKEUP_REASON = "touch_wakeup_reason"
 CONF_UNTIL = "until"
+CONF_WAKEUP_PINS = "wakeup_pins"
 
 WAKEUP_CAUSES_SCHEMA = cv.Schema(
     {
@@ -157,6 +168,18 @@ WAKEUP_CAUSES_SCHEMA = cv.Schema(
         cv.Optional(CONF_TOUCH_WAKEUP_REASON): cv.positive_time_period_milliseconds,
         cv.Optional(CONF_GPIO_WAKEUP_REASON): cv.positive_time_period_milliseconds,
     }
+)
+
+WakeUpPinItem = deep_sleep_ns.struct("WakeUpPinItem")
+WAKEUP_PINS_SCHEMA = cv.ensure_list(
+    cv.Schema(
+        {
+            cv.Required(CONF_PIN): pins.internal_gpio_input_pin_schema,
+            cv.Optional(CONF_WAKEUP_PIN_MODE): cv.All(
+                cv.enum(WAKEUP_PIN_MODES), upper=True
+            ),
+        }
+    ),
 )
 
 CONFIG_SCHEMA = cv.Schema(
@@ -168,10 +191,12 @@ CONFIG_SCHEMA = cv.Schema(
         ),
         cv.Optional(CONF_SLEEP_DURATION): cv.positive_time_period_milliseconds,
         cv.Optional(CONF_WAKEUP_PIN): cv.All(
-            cv.only_on_esp32, pins.internal_gpio_input_pin_schema, validate_pin_number
+            cv.only_on(["esp32", "libretiny"]),
+            pins.internal_gpio_input_pin_schema,
+            validate_pin_number,
         ),
         cv.Optional(CONF_WAKEUP_PIN_MODE): cv.All(
-            cv.only_on_esp32, cv.enum(WAKEUP_PIN_MODES), upper=True
+            cv.only_on(["esp32", "libretiny"]), cv.enum(WAKEUP_PIN_MODES), upper=True
         ),
         cv.Optional(CONF_ESP32_EXT1_WAKEUP): cv.All(
             cv.only_on_esp32,
@@ -183,6 +208,10 @@ CONFIG_SCHEMA = cv.Schema(
                     cv.Required(CONF_MODE): cv.enum(EXT1_WAKEUP_MODES, upper=True),
                 }
             ),
+        ),
+        cv.Optional(CONF_WAKEUP_PINS): cv.All(
+            cv.only_on(["libretiny"]),
+            WAKEUP_PINS_SCHEMA,
         ),
         cv.Optional(CONF_TOUCH_WAKEUP): cv.All(cv.only_on_esp32, cv.boolean),
     }
@@ -236,6 +265,25 @@ async def to_code(config):
 
     if CONF_TOUCH_WAKEUP in config:
         cg.add(var.set_touch_wakeup(config[CONF_TOUCH_WAKEUP]))
+
+    if CONF_WAKEUP_PINS in config:
+        conf = config[CONF_WAKEUP_PINS]
+        for item in conf:
+            cg.add(
+                var.add_wakeup_pin(
+                    cg.StructInitializer(
+                        WakeUpPinItem,
+                        ("wakeup_pin", await cg.gpio_pin_expression(item[CONF_PIN])),
+                        (
+                            "wakeup_pin_mode",
+                            item.get(
+                                CONF_WAKEUP_PIN_MODE,
+                                WakeupPinMode.WAKEUP_PIN_MODE_IGNORE,
+                            ),
+                        ),
+                    )
+                )
+            )
 
     cg.add_define("USE_DEEP_SLEEP")
 
