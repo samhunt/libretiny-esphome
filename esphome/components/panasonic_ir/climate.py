@@ -17,7 +17,7 @@ panasonic_ns = cg.esphome_ns.namespace("panasonic_ir")
 PanasonicClimate = panasonic_ns.class_("PanasonicClimate", climate_ir.ClimateIR)
 
 PanasonicACSelect = panasonic_ns.class_(
-    "PanasonicACSelect", select.Select, cg.Component, cg.PollingComponent
+    "Select", select.Select, cg.PollingComponent
 )
 
 SELECT_SCHEMA = select.SELECT_SCHEMA.extend(
