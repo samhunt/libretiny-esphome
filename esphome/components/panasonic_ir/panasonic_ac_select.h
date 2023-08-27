@@ -10,7 +10,7 @@ class PanasonicACSelect : public select::Select {
   // protected:
   // void control(const std::string &value) override { this->publish_state(value); }
 
-  void Select::setup() {
+  void Select::setup() override {
     if (this->f_.has_value())
       return;
 
@@ -37,7 +37,7 @@ class PanasonicACSelect : public select::Select {
     this->publish_state(value);
   }
 
-  void Select::control(const std::string &value) {
+  void Select::control(const std::string &value) override {
     this->set_trigger_->trigger(value);
 
     if (this->optimistic_)
