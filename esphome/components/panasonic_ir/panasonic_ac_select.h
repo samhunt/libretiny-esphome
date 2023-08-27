@@ -24,9 +24,9 @@ class PanasonicACSelect : public select::Select, public PollingComponent {
 
  protected:
   void control(const std::string &value) override;
-  bool optimistic_ = false;
+  bool optimistic_ = true;
   std::string initial_option_;
-  bool restore_value_ = false;
+  bool restore_value_ = true;
   Trigger<std::string> *set_trigger_ = new Trigger<std::string>();
   optional<std::function<optional<std::string>()>> f_;
 
