@@ -111,7 +111,7 @@ void PanasonicClimate::update_swing_vertical(const std::string &swing) {
     this->vertical_vane_select_->publish_state(this->vertical_swing_state_);  // Set current vertical swing position
 }
 
-void PanasonicClimate::set_vertical_vane_select(select::Select *vertical_vane_select) {
+void PanasonicClimate::set_vertical_vane_select(panasonic_ir::PanasonicACSelect *vertical_vane_select) {
   this->vertical_vane_select_ = vertical_vane_select;
   this->vertical_vane_select_->add_on_state_callback([this](const std::string &value, size_t index) {
     if (value == this->vertical_swing_state_)
@@ -121,7 +121,7 @@ void PanasonicClimate::set_vertical_vane_select(select::Select *vertical_vane_se
   });
 }
 
-void PanasonicClimate::set_horizontal_vane_select(select::Select *horizontal_vane_select) {
+void PanasonicClimate::set_horizontal_vane_select(panasonic_ir::PanasonicACSelect *horizontal_vane_select) {
   this->horizontal_vane_select_ = horizontal_vane_select;
   this->horizontal_vane_select_->add_on_state_callback([this](const std::string &value, size_t index) {
     if (value == this->horizontal_swing_state_)

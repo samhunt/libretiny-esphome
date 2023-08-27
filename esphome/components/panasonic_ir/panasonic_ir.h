@@ -1,7 +1,8 @@
 #pragma once
 
 #include "esphome/components/climate_ir/climate_ir.h"
-#include "esphome/components/select/select.h"
+// #include "esphome/components/select/select.h"
+#include "esphome/components/panasonic_ir/panasonic_ac_select.h"
 
 namespace esphome {
 namespace panasonic_ir {
@@ -21,8 +22,8 @@ class PanasonicClimate : public climate_ir::ClimateIR {
     }
 
   void setup() override;
-  void set_vertical_vane_select(select::Select *vertical_vane_select);
-  void set_horizontal_vane_select(select::Select *horizontal_vane_select);
+  void set_vertical_vane_select(panasonic_ir::PanasonicACSelect *vertical_vane_select);
+  void set_horizontal_vane_select(panasonic_ir::PanasonicACSelect *horizontal_vane_select);
 
  protected:
   /// Transmit via IR the state of this climate controller.
@@ -39,8 +40,8 @@ class PanasonicClimate : public climate_ir::ClimateIR {
   bool supports_vertical_{false};
   bool supports_horizontal_{false};
 
-  select::Select *vertical_vane_select_ = nullptr;    // Select to store manual position of vertical swing
-  select::Select *horizontal_vane_select_ = nullptr;  // Select to store manual position of horizontal swing
+  panasonic_ir::PanasonicACSelect *vertical_vane_select_ = nullptr;    // Select to store manual position of vertical swing
+  panasonic_ir::PanasonicACSelect *horizontal_vane_select_ = nullptr;  // Select to store manual position of horizontal swing
 
   // When received command to change the vane positions
   void on_horizontal_swing_change(const std::string &swing);
