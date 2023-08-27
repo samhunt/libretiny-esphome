@@ -37,6 +37,7 @@ class PanasonicACSelect : public select::Select {
     this->publish_state(value);
   }
 
+ protected:
   void Select::control(const std::string &value) override {
     this->set_trigger_->trigger(value);
 

@@ -66,7 +66,7 @@ class Select : public EntityBase, public PollingComponent {
 
   void set_template(std::function<optional<std::string>()> &&f) { this->f_ = f; }
 
-  void setup() override;
+  // void setup() override;
   void update() override;
   void dump_config() override;
   float get_setup_priority() const override { return setup_priority::HARDWARE; }
