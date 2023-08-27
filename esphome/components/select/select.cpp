@@ -6,34 +6,6 @@ namespace select {
 
 static const char *const TAG = "select";
 
-
-
-void Select::update() {
-  if (!this->f_.has_value())
-    return;
-
-  auto val = (*this->f_)();
-  if (!val.has_value())
-    return;
-
-  if (!this->has_option(*val)) {
-    ESP_LOGE(TAG, "Lambda returned an invalid option: %s", (*val).c_str());
-    return;
-  }
-
-  this->publish_state(*val);
-}
-
-void Select::dump_config() {
-  LOG_SELECT("", "Select", this);
-  LOG_UPDATE_INTERVAL(this);
-  if (this->f_.has_value())
-    return;
-  ESP_LOGCONFIG(TAG, "  Optimistic: %s", YESNO(this->optimistic_));
-  ESP_LOGCONFIG(TAG, "  Initial Option: %s", this->initial_option_.c_str());
-  ESP_LOGCONFIG(TAG, "  Restore Value: %s", YESNO(this->restore_value_));
-}
-
 void Select::publish_state(const std::string &state) {
   auto index = this->index_of(state);
   const auto *name = this->get_name().c_str();
