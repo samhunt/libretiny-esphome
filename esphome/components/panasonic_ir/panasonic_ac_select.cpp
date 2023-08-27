@@ -4,6 +4,8 @@
 namespace esphome {
 namespace panasonic_ir {
 
+
+static const char *const TAG = "panasonic_ac.select";
   void PanasonicACSelect::setup() {
     if (this->f_.has_value())
       return;
