@@ -3,8 +3,11 @@
 #include "esphome/components/select/select.h"
 #include "esphome/core/log.h"
 
+
 namespace esphome {
 namespace panasonic_ir {
+
+static const char *const TAG = "panasonic_ac_select";
 
 class PanasonicACSelect : public select::Select {
   // protected:
