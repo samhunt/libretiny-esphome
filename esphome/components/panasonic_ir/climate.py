@@ -3,7 +3,7 @@ import esphome.config_validation as cv
 from esphome.components import climate_ir, select
 from esphome.const import (
     CONF_ID,
-    CONF_SUPPORTS_BOTH_SWING,
+#    CONF_SUPPORTS_BOTH_SWING,
     CONF_SUPPORTS_HORIZONTAL_SWING,
     CONF_SUPPORTS_VERTICAL_SWING,
 )
@@ -39,7 +39,7 @@ CONFIG_SCHEMA = climate_ir.CLIMATE_IR_WITH_RECEIVER_SCHEMA.extend(
         cv.GenerateID(): cv.declare_id(PanasonicClimate),
         cv.Optional(CONF_SUPPORTS_HORIZONTAL_SWING, default=False): cv.boolean,
         cv.Optional(CONF_SUPPORTS_VERTICAL_SWING, default=True): cv.boolean,
-        cv.Optional(CONF_SUPPORTS_BOTH_SWING, default=False): cv.boolean,
+#        cv.Optional(CONF_SUPPORTS_BOTH_SWING, default=False): cv.boolean,
         cv.Optional(CONF_HORIZONTAL_SWING_SELECT): SELECT_SCHEMA,
         cv.Optional(CONF_VERTICAL_SWING_SELECT): SELECT_SCHEMA,
     }
@@ -54,7 +54,7 @@ async def to_code(config):
         var.set_supported_swing_modes(
             config[CONF_SUPPORTS_HORIZONTAL_SWING],
             config[CONF_SUPPORTS_VERTICAL_SWING],
-            config[CONF_SUPPORTS_BOTH_SWING],
+#            config[CONF_SUPPORTS_BOTH_SWING],
         )
     )
 
