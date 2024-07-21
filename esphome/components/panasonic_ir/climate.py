@@ -50,13 +50,13 @@ async def to_code(config):
     var = cg.new_Pvariable(config[CONF_ID])
     await climate_ir.register_climate_ir(var, config)
 
-    cg.add(
-        var.set_supported_swing_modes(
-#            config[CONF_SUPPORTS_HORIZONTAL_SWING],
-#            config[CONF_SUPPORTS_VERTICAL_SWING],
-#            config[CONF_SUPPORTS_BOTH_SWING],
-        )
-    )
+#     cg.add(
+#         var.set_supported_swing_modes(
+# #            config[CONF_SUPPORTS_HORIZONTAL_SWING],
+# #            config[CONF_SUPPORTS_VERTICAL_SWING],
+# #            config[CONF_SUPPORTS_BOTH_SWING],
+#         )
+#     )
 
 #    if CONF_HORIZONTAL_SWING_SELECT in config:
 #        conf = config[CONF_HORIZONTAL_SWING_SELECT]
